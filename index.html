@@ -6,67 +6,100 @@
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <title>Patrimônio Histórico de Joinville</title>
     <style type="text/css">
-        body {
-            font-family: 'Georgia', serif;
-            background-image: url("http://4.bp.blogspot.com/_HKd_aI3JnTs/TNliqN9eTXI/AAAAAAAAA24/eIXBkeXhxrc/s1600/digitalizar00101cr4.jpg");
-            background-size: cover;
-            background-attachment: fixed;
-            color: #4B3D33;
-        }
-        h1 {
-            background-color: #DEB887;
-            margin: 10px;
-            padding: 10px;
-            text-align: center;
-            font-family: 'Cursive', cursive;
-            font-size: 2.5em;
-            border-radius: 10px;
-        }
-        .main {
-            margin: 2%;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        .card {
-            width: 20%;
-            display: inline-block;
-            box-shadow: 5px 2px 20px rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            margin: 20px;
-            background-color: #fff8f0;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.7);
-        }
-        .image img {
-            width: 100%;
-            border-top-right-radius: 10px;
-            border-top-left-radius: 10px;
-        }
-        .title {
-            text-align: center;
-            padding: 10px;
-        }
-        .title h2 {
-            font-size: 1.5em;
-            margin: 0;
-        }
-        .des {
-            padding: 10px;
-            text-align: justify;
-            border-bottom-right-radius: 5px;
-            border-bottom-left-radius: 5px;
-        }
-        a {
-            color: #4B3D33;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+       body {
+    font-family: 'Courier New', Courier, monospace; /* Alterado para 'Courier New' */
+    background-image: url("http://4.bp.blogspot.com/_HKd_aI3JnTs/TNliqN9eTXI/AAAAAAAAA24/eIXBkeXhxrc/s1600/digitalizar00101cr4.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: burlywood;  /* Adicionado fundo 'blanchedalmond' */
+    color: #333; /* Alterado a cor do texto para #333 */
+}
+
+h1 {
+    background-color: #DEB887;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-family: 'Cursive', cursive;
+    font-size: 2.5em;
+    border-radius: 10px;
+}
+
+.main {
+    margin: 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.card {
+    width: 20%;
+    display: inline-block;
+    box-shadow: 5px 2px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    margin: 20px;
+    background-color: burlywood;  /* Cor de fundo ajustada */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 5px 4px 30px rgba(0, 0, 0, 0.7);
+}
+
+.image img {
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.title {
+    text-align: center;
+    padding: 10px;
+}
+
+.title h2 {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.des {
+    padding: 10px;
+    text-align: justify;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+a {
+    color: #4B3D33;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Adicionado estilo para o popup de vídeo */
+.video-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    z-index: 1000;
+    border-radius: 15px;
+    border: 5px solid #FFD700;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: 80%;
+    max-width: 600px;
+}
+
+.video-popup video {
+    width: 100%;
+    border-radius: 10px;
+}
+
     </style>
 </head>
 <body>
