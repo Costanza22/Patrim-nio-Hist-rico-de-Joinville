@@ -1,0 +1,503 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Casarão de Procópio Gomes</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://www.clicrbs.com.br/sites/swf/an_especiais_patrimonio/projetos/img/10852740.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        Casarão de Procópio Gomes
+        
+        
+        <a href="https://www.clicrbs.com.br/sites/swf/an_especiais_patrimonio/projetos/villamaria.html" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+                <img src="procopio.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">Casarão de Procópio Gomes</h1>
+                        <img src="logo.webp" alt="Ícone" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    <label style="font-size: 20px; color: black;">
+                        <span style="color: red; font-size: 24px;">&#10006;</span> Abandonado
+                    </label>
+                    
+                    <script>
+                    function toggleX() {
+                        var checkbox = document.getElementById('abandonedCheckbox');
+                        var xMarker = document.getElementById('xMarker');
+                        xMarker.style.display = checkbox.checked ? 'inline' : 'none';
+                    }
+                    </script>
+        
+                    <h2>Bem-vindo(a) ao Casarão de Procópio Gomes</h2> 
+                    <img src="https://static.ndmais.com.br/2023/02/casa-casarao-imovel-procopio-gomes-de-oliveira-vila-maria-4-800x514.jpeg" alt="Cidadela" onclick="openModal()" style="width: 500px;">
+                    <br>
+                    
+                    
+        
+        <p>
+            A pedido de Procópio Gomes de Oliveira, uma das pessoas mais influentes em Joinville no início do século 20, o casarão Villa Maria foi construída no ano de 1913 para homenagear a própria esposa, Maria Balbina.
+
+
+
+Vindo de Paraty, onde é atualmente localizada a cidade de Araquari, Procópio chegou com a família em Joinville para explorar a agricultura na região próxima à serra Dona Francisca. Empresário, ele então entrou na política e se tornou superintendente (o que vale a prefeito nos dias de hoje) em 1903. Ficou no cargo até o ano de 1907, mas retornou em 1911. Mas antes de sair novamente, em 1914, construiu o casarão para homenagear Maria.
+        </p>
+        <p>Porém, o que era para ser uma história de uma bela homenagem, se tornou cheia de mistérios. Isto porque, a casa, localizada na rua que carrega o nome de Procópio Gomes, no bairro Bucarein, possui diversas histórias ao longo do tempo de ser mal-assombrada por espíritos de escravos que receberam maus tratos na época em que a família viveu na residência.
+
+
+            Casarão Villa Maria, por volta da década de 1920. Foto: Acervo Arquivo Histórico de Joinville
+        </p>
+
+        <h2>Histórico </h2>
+        <p> Segundo o coordenador do arquivo histórico de Joinville, Dilney Cunha, não existe nenhum documento, registro histórico ou depoimento de pessoas da época que comprove a teoria. Além disso, o historiador explica que no momento em que a casa foi erguida, já não existia mais escravidão. “Como a família era bastante rica, existiam empregados, o que é algo diferente”, frisa. Em relação a possíveis pessoas ou bebês enterradas no local, Dilney afirma que também não existe nenhum documento de algum cemitério ou algo relacionado. “Isso, de certeza, não existiu.”
+
+            Outro ponto muito debatido sobre o casarão Vila Maria é sobre os comércios que passaram por ali. Após a morte de Procópio Gomes e de Maria Balbina, em 1934 e 1939, respectivamente, o imóvel permaneceu com os filhos do casal até o ano de 2004. Após isso, passou a ser alugado para diversos fins. Conforme as histórias, nenhuma empresa comercial durou muito tempo e até chegaram a decretar falência. “Por último, que eu lembro porque entrei no casarão, era um local para festa infantis”, relatou Dilney.</p>
+
+        <h2>Arquitetura</h2>
+        <p>Estilo Neoclássico: O casarão apresenta elementos neoclássicos, evidenciados nas colunas, janelas simétricas e na proporção equilibrada das fachadas.
+
+            Uso de Materiais Locais: A construção utiliza materiais típicos da região, como madeira de lei e alvenaria, que são comuns em edifícios históricos de Joinville.
+            
+            Detalhes Ornamentais: A fachada é ricamente decorada, com detalhes como cornijas, beirais e molduras ao redor das janelas. Esses elementos decorativos são típicos da arquitetura do período em que o casarão foi construído.</p>
+        
+        
+        
+        <h2>Importância Cultural</h2>
+        <p>O casarão representa uma época específica da história de Joinville, refletindo a influência da colonização europeia na arquitetura e na cultura da cidade. Sua preservação ajuda a manter viva a memória coletiva da comunidade.
+            2. Identidade Cultural
+            Como um dos poucos exemplares da arquitetura neoclássica na região, o casarão contribui para a identidade cultural de Joinville. Ele é um marco que liga a população à sua história, promovendo um senso de pertencimento.
+            3. Centro de Cultura e Arte</p>
+        
+            
+        </p>
+      
+        <figure style="background-color: burlywood; padding: 10px; text-align: center;">
+    <img src="https://th.bing.com/th/id/R.37403920807f9123e7d35f5496661a32?rik=%2b15pqM7FgAS7BQ&pid=ImgRaw&r=0" alt="Descrição da Imagem" style="width: 100%; max-width: 500px; height: auto;">
+    <figcaption>Fachada do Casarão</figcaption>
+</figure>
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="https://omunicipiojoinville.com/wp-content/uploads/2023/02/entenda-historia-e-misterios-do-casarao-da-avenida-procopio-gomes-em-joinville-img-3015.jpg" 
+             style="width: 500px;">
+             
+
+             <div class="imagem-direita">
+                <img src="https://static.ndmais.com.br/2011/03/11-03-2011-17-38-31-casa-hoje.jpg" 
+                     style="width: 500px;">
+                     
+             <div class="imagem-direita">
+        <img src="https://static.ndmais.com.br/2023/02/casa-casarao-imovel-procopio-gomes-de-oliveira-vila-maria-5-800x591.jpeg" 
+             
+             style="width: 500px;">
+             
+    
+    <div class="imagem-direita">
+        <img src="https://static.ndmais.com.br/2023/02/casa-casarao-imovel-procopio-gomes-de-oliveira-vila-maria-3-800x640.jpeg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://static.ndmais.com.br/2023/02/casa-casarao-imovel-procopio-gomes-de-oliveira-vila-maria-1-800x582.jpeg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://i.ytimg.com/vi/_MLSoRSjVas/hqdefault.jpg" alt="Descrição da Imagem" style="width: 500px;">
+        
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>Av. Cel. Procópio Gomes, 934 - Bucarein, Joinville - SC, 89202-422</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/Cf9vF1Y9z1M';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.29576870, lng:  -48.87293860 }; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Casarão de Procópio Gomes'
+    });
+
+    var contentString = '<div><h2>Casarão Gomes</h2><img src="https://www.clicrbs.com.br/sites/swf/an_especiais_patrimonio/projetos/img/10852740.jpg" alt="Cidadela"><p>Av. Cel. Procópio Gomes, 934 - Bucarein, Joinville - SC, 89202-422</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+<!-- O Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p><br><strong>Incêndio</strong><br></p>
+        <p>O incêndio que atingiu o Casarão Procopio Gomes ocorreu em 18 de setembro de 2018 e causou danos significativos ao patrimônio histórico. Aqui estão os principais pontos sobre o incidente:</p>
+        <p>Origem do Incêndio: As causas exatas do incêndio não foram esclarecidas, mas ele começou à noite e se espalhou rapidamente pelas dependências do casarão.</p>
+        <p>Danos Estruturais: O fogo causou danos severos, destruindo partes importantes da estrutura, incluindo o telhado e algumas áreas internas. Muitos elementos arquitetônicos e ornamentais, que eram parte da identidade do casarão, foram perdidos.</p>
+        <p><br><strong>Fonte Jornal do Almoço</strong><br></p>
+        <img src="data:image/jpeg;base64,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"
+    </div>
+</div>
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
