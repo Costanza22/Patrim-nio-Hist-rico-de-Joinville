@@ -1,0 +1,515 @@
+
+<!DOCTYPE html>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <title>Palacete Niemeyer</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://cortinadopassado.com.br/wp-content/uploads/2021/01/18-04-2014-17-09-18-casarao-neymeier-18-04-2014-11-.jpg?w=500');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    .warning {
+            background-color: #ffcc00; 
+            padding: 10px;
+            border: 1px solid #ff9900; 
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-icon {
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        O Palacete Niemeyer
+        
+        
+        <a href="" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+
+                <img src="palacete2.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">Palacete Niemeyer</h1>
+                        <img src="principe.png" alt="Ícone" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    <label style="font-size: 20px; color: black;">
+                        <span style="color: green; font-size: 24px;">&#10004;</span> Restaurado
+                    </label>
+                    
+                    <script>
+                    function toggleX() {
+                        var checkbox = document.getElementById('abandonedCheckbox');
+                        var xMarker = document.getElementById('xMarker');
+                        xMarker.style.display = checkbox.checked ? 'inline' : 'none';
+                    }
+                    </script>
+        <div class="warning">
+            <span class="warning-icon">⚠️</span>
+            <span>Na Página Inicial existe uma pré-demonstração desse casarão!</span>
+            
+        </div>
+                    <h2>Bem-vindo(a) ao Palacete Niemeyer</h2> 
+                    <img src="https://static.ndmais.com.br/2011/01/28-01-2011-22-10-29-palacete-foto2-tentar-usar-esta.jpg" alt="Cidadela" onclick="openModal()" style="width: 500px;">
+                    <br>
+                    
+                    
+        
+        <p>Construído em 1906 pelo comerciante Luiz Niemeyer, o casarão durante décadas foi a residência da família. Filho de Johann Otto Louis Niemeyer, ex-diretor  da Colônia Dona Francisca, e nascido em 1869 já em Joinville, Luiz Niemeyer tinha o mesmo nome do pai.</p>
+        <p>Luiz Niemeyer filho casou-se com Sophie Dorothea Lepper, filha do comerciante, industrial e deputado estadual Hermann August Lepper, uma das  personalidades mais atuantes da cidade no  final do século 19 e início do século 20. Durante anos, trabalhou com o sogro na empresa de importação e exportação e casa de secos e molhados.
+
+        </p>
+
+        <h2>Histórico </h2>
+        <p>O casal  tiveram cinco filhos: Otto, Leopoldo, Luiz, Kurt e Ruth Niemeyer Stamm.
+
+            Filha de Leopoldo, Hedy Niemeyer – nascida em 1926, lembra pouco do avô, que morreu em 1929, quando viajava à Alemanha com a esposa e os filhos. Mas guarda na memória as imagens da casa e da avó, que viveu  no local até ficar bem idosa e ir morar com a filha Ruth.
+            
+            “Era a casa da vovó. Quando ia para Joinville com meus pais, dormia no quarto com ela.” Entre suas lembranças mais antigas está o quarto da avó, recoberto com papel de parede com grandes rosas amarelas. “E o pão que ela fazia… Fazia pão de batata e levava na Confeitaria Dietrich para assar.” Nas recordações de menina ainda estão a cozinha com uma despensa, onde não faltavam o melado e o açúcar cristal.</p>
+
+        <h2>Arquitetura</h2>
+        <p>O imóvel era grande e tinha um terraço que o contornava, indo até os fundos. Um traço antigo europeu é que havia divisões de sala para visitas. Tinha a sala de visitas para as mulheres e sala de visitas para os homens. A sala do Sr. Luiz Niemeyer era voltada para a frente da casa.
+            quintal havia espaço para a horta, o pomar, o galinheiro e para guardar a charrete. Depois que a viúva Niemeyer, já idosa, foi morar com a filha, o imóvel foi alugado para a família Olsen e alguns anos depois comprado pelo Banco do Brasil.
+        </p>
+        
+        <h2>Transformação em Centro Cultural e quase demolição</h2>
+        <p>
+            o início dos anos 80, o Palacete  Niemeyer quase foi demolido para à nova sede do Banco do Brasil. A iniciada começou em agosto de 1982, mas que foi interrompida e em outubro do mesmo ano, o banco anunciou a decisão de preservar o casarão. Dois anos depois, o novo prédio do BB foi erguido ao lado do local.
+
+
+Um abaixo-assinado foi iniciado pelo Movimento Comunitário de Preservação Cultural de Joinville para ser entregue à Secretaria de Patrimônio Histórico e Artístico Nacional. A FCC (Fundação Catarinense de Cultura), em matéria publicada no “Jornal de Santa Catarina”, também apoiava a preservação. Na época, o pronunciamento do representante da FCC baseava-se no laudo técnico do então conservador-chefe do Estado de Hessen, na Alemanha, Udo Baumann, realizado durante missão de cooperação no Brasil. Ele concluiu: “Além da relevância artística, o edifício Niemeyer desempenha a função de referencial urbanístico de primeira grandeza histórica para a cidade,
+        </p>
+        
+        <h2>Importância Cultural</h2>
+        <p>O Palacete Niemeyer é de grande importância cultural para Joinville e sua história, servindo como um símbolo da herança arquitetônica e da memória coletiva da cidade. Como um dos edifícios mais antigos da região, ele representa a influência dos imigrantes germânicos na construção da identidade cultural de Joinville</p>
+        
+            
+        </p>
+      
+        <figure style="background-color: burlywood; padding: 10px; text-align: center;">
+    <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-48.png" alt="Descrição da Imagem" style="width: 100%; max-width: 500px; height: auto;">
+    <figcaption>1906</figcaption>
+</figure>
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-44.png" 
+             style="width: 500px;">
+             
+
+             <div class="imagem-direita">
+                <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-46.png" 
+                     style="width: 500px;">
+                     
+             <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-49.png" 
+             
+             style="width: 500px;">
+             
+    
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-45.png" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-50.png" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2023/02/image-52.png" alt="Descrição da Imagem" style="width: 500px;">
+        
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>R. Luiz Niemeyer, 121 - Centro, Joinville - SC, 89201-060</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/SqQpxi6h-pQ?start=50';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.2991, lng:  -48.84512}; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Palacete Niemeye'
+    });
+
+    var contentString = '<div><h2>Palacete Niemeyer</h2><img src="https://hinsching.files.wordpress.com/2023/02/image-49.png?w=620" alt="Cidadela"><p>R. Luiz Niemeyer, 121 - Centro, Joinville - SC, 89201-060</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+<!-- O Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p><br><strong>Lendas</strong><br></p>
+        <p>Em 1982 surgiram histórias de tesouros que estariam escondidos em seu interior, por causa da demolição que estaria por acontecer. As pessoas “sempre criativas” deram à imaginação muitas ilusões e ficção. Há relatos de que um dia um velhinho contou aos responsáveis pelos trabalhos que havia sonhado com um tesouro enterrado no casarão, não sabia indicar o local exato da riqueza. </p>
+        <p>Quando o prédio começou a ser demolido, em 1982, surgiram histórias de tesouros que estariam escondidos em seu interior. E as pessoas deram asas à imaginação. Há relatos de que um dia um velhinho contou aos responsáveis pelos trabalhos que havia sonhado com um tesouro enterrado no casarão. Ele, porém, não sabia indicar o local exato da riqueza. </p>
+        <p>Logo depois, os trabalhadores teriam encontrado indícios do tal tesouro. Ao retirar o assoalho do quarto principal, eles se depararam com um canal de ventilação e, sob o assoalho, uma marca arredondada, que poderia ser de uma arca antiga. Mas nada de baú ou de riquezas no estreito vão de ventilação. “Não havia tesouro. Era praxe na época. Todo mundo fazia isto quando construía suas casas”, explica a neta de Luiz Niemeyer, Hedy Niemeyer.</p>
+        <p><br><strong>Fonte Cortina do Passado</strong><br></p>
+        <img src="https://static.ndmais.com.br/2011/01/28-01-2011-22-11-42-12-foto-5.jpg"
+    </div>
+</div>
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
