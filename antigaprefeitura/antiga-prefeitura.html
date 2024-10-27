@@ -1,0 +1,470 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Antiga Prefeitura de Joinville - O Farol</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://nsc-total-wp.s3.sa-east-1.amazonaws.com/wp-content/uploads/2022/10/Cidadela-Cultural-Joinville-1_0.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        O Farol
+        
+        
+        <a href="https://www.joinville.sc.gov.br/institucional/sde/o-farol/" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+                <img src="faroldejoinville-rotated.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">Antiga Prefeitura de Joinville (Farol)</h1>
+                        <img src="lighthouse_1307570.png" alt="Ícone Prefeitura" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    
+        
+        <h2>Bem-vindo ao Farol de Joinville</h2> <img src="https://img.nsctotal.com.br/wp-content/uploads/2022/10/joinville-antiga-prefeitura-1.jpg" alt="Farol de Joinville" onclick="openModal()" style="width: 500px;">
+        
+        <p>O Farol de Joinville, inaugurado em 1916, é um símbolo da cidade, projetado para ajudar na navegação de embarcações no Canal da Barra do Sul. Com sua luz potente, ele proporciona segurança aos marinheiros e é um marco histórico para a comunidade local.</p>
+        <p>Ao longo dos anos, o farol passou por várias revitalizações, incluindo uma significativa em 2012, quando foi transformado em um espaço cultural e de lazer. Hoje, o Farol de Joinville abriga eventos comunitários, exposições de arte e é um ponto turístico apreciado por aqueles que buscam desfrutar de sua arquitetura e das belas vistas da região.</p>
+
+        <h2>Histórico </h2>
+        <p>A antiga Prefeitura de Joinville, inaugurada em 1911, é um marco histórico e arquitetônico da cidade. Com um estilo eclético que combina influências neoclássicas e elementos europeus, o edifício reflete a prosperidade de Joinville durante o início do século XX.</p>
+
+        <h2>Arquitetura</h2>
+        <p>O prédio é caracterizado por sua fachada imponente, detalhes ornamentais e um design que expressa a identidade cultural da cidade. Sua construção simboliza o crescimento e desenvolvimento de Joinville na época, sendo um exemplo notável do patrimônio arquitetônico local.</p>
+
+        <h2>Transformação em Centro Cultural</h2>
+        <p>Em 2004, a antiga Prefeitura deixou de ser a sede do governo municipal e passou por reformas para se transformar no <strong>Farol</strong>, um espaço dedicado à cultura e às artes. O Farol abriga a Fundação Cultural de Joinville e oferece uma variedade de atividades, como exposições, oficinas, palestras e eventos artísticos, promovendo a interação da comunidade com a cultura.</p>
+
+        <h2>Importância Cultural</h2>
+        <p>Hoje, o Farol é um ponto de encontro significativo para moradores e visitantes, mantendo viva a história do antigo prédio enquanto incentiva a produção cultural na cidade. A sua programação diversificada contribui para o enriquecimento da vida cultural joinvilense, atraindo um público variado e fortalecendo a identidade cultural da região.
+            
+        </p>
+      
+        <figure style="background-color: burlywood; padding: 10px; text-align: center;">
+    <img src="grafite4.jpg" alt="Descrição da Imagem" style="width: 100%; max-width: 500px; height: auto;">
+    <figcaption>Grafite do Camaleão</figcaption>
+</figure>
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="grafite3.jpg" 
+             style="width: 500px;">
+             
+
+             <div class="imagem-direita">
+                <img src="grafite1.jpg" 
+                     style="width: 500px;">
+                     
+             <div class="imagem-direita">
+        <img src="grafite2.jpg" 
+             
+             style="width: 500px;">
+             
+    
+    <div class="imagem-direita">
+        <img src="https://static.ndmais.com.br/2019/12/cc23eb9b-74b9-43b6-a1f6-b1e9cfbd18bd-800x459.jpg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://www.clicrbs.com.br/sites/swf/an_especiais_patrimonio/torre/img/10675091.jpg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://th.bing.com/th/id/R.55d0d20134cb5f79bafb2a3a0e3ceb26?rik=ondu%2f79aPADB8A&riu=http%3a%2f%2fs01.video.glbimg.com%2fx720%2f5035552.jpg&ehk=5d%2b0FMZ02OIewLLeekp2GbDMI1zORrBh%2fnoi58UTlUA%3d&risl=&pid=ImgRaw&r=0" alt="Descrição da Imagem" style="width: 500px;">
+        
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>R. Max Colin, 550 - América, Joinville - SC, 89204-040</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/qyn9Vr1MHs8?autoplay=1';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.2941877, lng:  -48.8576263 }; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Farol de Joinville'
+    });
+
+    var contentString = '<div><h2>Farol de Joinville</h2><img src="https://th.bing.com/th/id/OIP.L-leLNZsGYmhVglXgFTZCAHaGC?rs=1&pid=ImgDetMain" alt="Farol de Joinville"><p>R. Max Colin, 550 - América, Joinville - SC, 89204-040</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+<!-- O Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p><br><strong>Curiosidade:</strong><br></p>
+        <p>Durante o Festival de Dança de Joinville de 2013, o Farol de Joinville se tornou um canvas vibrante para artistas de grafite, que transformaram sua estrutura em uma obra de arte ao ar livre,idealizada pelo Instituto Festival de Dança, é parte do Encontro das Ruas, que antecede a abertura do Festival de Dança, mas gerou dúvidas e contestações.</p>
+        <p>A arquiteta e pesquisadora de patrimônio cultural, Rosana Barreto Martins, disse que ficou perplexa ao ver o imóvel, que é tombado como patrimônio histórico pela Fundação Cultural de Joinville, recebendo a pintura. Ela aponta que houve descumprimento de portaria do Iphan (Instituto do Patrimônio Histórico e Artístico Nacional) que trata da proteção de bens tombados.</p>
+        <p>Em 2021,com a restauração do imóvel todos os grafites foram removidos.</p>
+        <p><br><strong>Fonte ND +</strong><br></p>
+        <img src="https://static.ndmais.com.br/2013/07/16-07-2013-23-04-45-copia-de-predio-antiga-prefeitura-by-carlos-junior.jpg-14-.jpg"
+    </div>
+</div>
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
