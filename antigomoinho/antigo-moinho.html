@@ -1,0 +1,499 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    
+    <title>Antigo Moinho de Trigo Joinville
+       
+    </title>
+
+
+
+
+    
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://i.pinimg.com/originals/ae/0c/21/ae0c211ead84c67d500d19fcc1c774e7.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        Antigo Moinho
+        
+        
+        <a href="https://www.escolasesisc.com.br/" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+                <img src="moinho-dois-1068x580.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">Antigo Moinho de Trigo Joinville</h1>
+                        
+                        <img src="planta-de-trigo.png" alt="Ícone Prefeitura" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    <label style="font-size: 20px; color: black;">
+                        <span style="color: green; font-size: 24px;">&#10004;</span> Restaurado
+                    </label>
+                    
+        
+        <h2>Bem-vindo ao Antigo Moinho de Trigo Joinville</h2> <img src="https://th.bing.com/th/id/R.267eba6810829f77bb06f19bbbed6d7a?rik=8%2bJjXc886U7MJQ&pid=ImgRaw&r=0" alt="Moinho" onclick="openModal()" style="width: 500px;">
+        
+        <p>O Antigo Moinho de Joinville, também conhecido como Moinho Heller, é um símbolo marcante do passado industrial de Joinville, localizado no coração da cidade. Fundado em 1913 pela empresa Heller & Cia, o moinho foi um dos pioneiros na produção de cereais na região, especialmente de farinha de trigo, um alimento básico e essencial para a comunidade. </p>
+        <p>A estrutura imponente e a técnica de construção em estilo enxaimel — com elementos de madeira entrelaçados e preenchidos com tijolos — fazem do moinho um exemplo de arquitetura típica dos colonizadores alemães que chegaram a Joinville no século XIX. A edificação, além de funcionar como moinho, representou uma inovação industrial na época, utilizando processos modernos de moagem e armazenamento de cereais.</p>
+
+        <h2>Histórico </h2>
+        <p>Ao longo das décadas, o moinho tornou-se um ponto central da economia de Joinville, atendendo não apenas a demanda local, mas também fornecendo farinha e outros produtos a regiões vizinhas. O funcionamento do moinho gerou muitos empregos e fomentou a economia, criando uma relação próxima com a comunidade que se desenvolvia ao seu redor. Essa proximidade fez do moinho um verdadeiro marco cultural e social na cidade. No entanto, com o avanço da tecnologia e as mudanças na economia, o moinho foi perdendo seu protagonismo e, eventualmente, encerrou suas atividades como centro de produção de cereais, passando para outras mãos e usos ao longo dos anos.</p>
+
+        <h2>Arquitetura</h2>
+        <p>Apesar das transformações, o prédio do Antigo Moinho sobreviveu ao tempo e foi reconhecido como patrimônio histórico e cultural, ganhando status de ícone na preservação da memória industrial de Joinville. Nos anos seguintes ao seu fechamento, foram realizadas restaurações cuidadosas para recuperar as características originais da edificação, respeitando o valor histórico do lugar. O moinho passou a ser mais do que apenas uma antiga indústria, convertendo-se em um espaço de eventos culturais, exposições e atividades artísticas, além de servir como uma lembrança física e visual da herança da cidade.</p>
+
+        <h2>Transformação em Escola Sesi</h2>
+        <p>A Federação das Indústrias de Santa Catarina (FIESC) lançou um projeto de restauração para o Antigo Moinho Joinville, visando preservar e revitalizar esse importante patrimônio histórico e cultural da cidade. A iniciativa faz parte do compromisso da FIESC com a valorização da memória industrial e arquitetônica de Santa Catarina, promovendo o resgate de estruturas que representam a trajetória econômica e social da região. O objetivo principal do projeto é restaurar o edifício mantendo suas características originais e adaptá-lo para novos usos, tornando-o um centro de cultura, conhecimento e inovação para a comunidade.</p>
+
+        <h2>Importância Cultural</h2>
+        <p>Atualmente, o Antigo Moinho de Joinville é um ponto turístico muito visitado, sendo apreciado tanto por moradores locais quanto por visitantes de outras regiões. O prédio evoca nostalgia e curiosidade, atraindo aqueles que querem entender mais sobre o desenvolvimento histórico da cidade.
+            
+        </p>
+      
+        <figure style="background-color: burlywood; padding: 10px; text-align: center;">
+    <img src="https://th.bing.com/th/id/OIP._GRhx1Ilj8dV7TL4NTSC_QHaEK?rs=1&pid=ImgDetMain" alt="Descrição da Imagem" style="width: 100%; max-width: 500px; height: auto;">
+    <figcaption>Restauração do Moinho</figcaption>
+</figure>
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="https://scc10.com.br/wp-content/uploads/2024/02/Em-Joinville-FIESC-apresenta-a-maior-Escola-SESI-de-Referencia-do-Brasil.jpg" 
+             style="width: 500px;">
+             
+
+             <div class="imagem-direita">
+                <img src="https://portalcontabilsc.com.br/wp-content/uploads/2017/11/Moinho-Joinville.jpg" 
+                     style="width: 500px;">
+                     
+             <div class="imagem-direita">
+        <img src="https://controle.omunicipiojoinville.com/wp-content/uploads/2024/04/fiesc-inaugura-maior-escola-sesi-do-brasil-em-joinville.jpg" 
+             
+             style="width: 500px;">
+             
+    
+    <div class="imagem-direita">
+        <img src="https://th.bing.com/th/id/R.83566f28faaa5c0f350deeedfa86637a?rik=k2xrnJyo7BGVjg&riu=http%3a%2f%2ffiesc.com.br%2fsites%2fdefault%2ffiles%2fgaleria%2f2024-02%2f53515596408_5e0451fb2a_k.jpg&ehk=EPpnDEjE3JLFhf8tFhGKmhxE9yp135cosG9Teh8iRHg%3d&risl=&pid=ImgRaw&r=0" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://th.bing.com/th/id/R.9b38480024889d9efeed267a77eb1501?rik=5SsopYjgsmkrEQ&riu=http%3a%2f%2fwww.rbsdirect.com.br%2fimagesrc%2f15914697.jpg%3fw%3d464%26h%3d300%26a%3dc&ehk=toXN5OBhITk4uYsxbCwv%2fKFZTQND6PX8lb%2bnxKxjC7U%3d&risl=&pid=ImgRaw&r=0" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://th.bing.com/th/id/R.0bfdfa426def5fb770602a5e52ae83fc?rik=XHeCOqoxFafPBg&riu=http%3a%2f%2fwww.rbsdirect.com.br%2fimagesrc%2f23976378.jpg%3fw%3d640&ehk=MYgeATOnNd6R4wl1TnLu1rxMzB9pMhWlf%2bsx2ZqQzT0%3d&risl=&pid=ImgRaw&r=0" alt="Descrição da Imagem" style="width: 500px;">
+        
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>R. Urussanga, 138 - Bucarein, Joinville - SC, 89202-400</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/HLa-rb37ScY?start=182';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.3138867, lng:  -48.8394292 }; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Moinho de Trigo'
+    });
+
+    var contentString = '<div><h2>Moinho de Trigo</h2><img src="https://i.ytimg.com/vi/KWAr-kzXhvw/maxresdefault.jpg" alt="Farol de Joinville"><p>R. Urussanga, 138 - Bucarein, Joinville - SC, 89202-400</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+<!-- O Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p><br><strong>O abandono</strong><br></p>
+        <p>Em 2013 a Bunge encerrou as atividades do 
+            Moinho Joinville, entretanto o processo de 
+            tombamento já estava em curso, iniciado 
+            2009, sob a ótica de que o Moinho “compreende 
+            os vestígios da cultura industrial que possuem valor 
+            histórico, tecnológico, social, arquitectônico ou 
+            científico” ( p. 3 Carta Nizhny Tagil sobre o Patrimônio 
+            industrial – The International Comiittee for the 
+            Conservation of the Industrial Heritage (TICCIH)) 
+            de acordo com a carta Carta Nizhny Tagil sobre o 
+            Patrimônio industrial</p>
+        <p> O terreno do complexo industrial do Moinho 
+            Joinville possui uma área de 60 mil m² e tem um 
+            formato de um polígono irregular assemelhado a um 
+            triângulo. Com relação à suas confrontações duas 
+            de suas faces se relacionam com o Rio Cachoeira e 
+            o Rio Jaguarão, respectivamente. As demais faces 
+            são limitadas por vias públicas: a Rua do Porto e a 
+            Rua Urussanga, esta última constitui, atualmente, a 
+            entrada principal para o complexo</p>
+        <p>Mesmo abandonado, em 2023 a Fiesc fez o restauro total do nosso querido Moinho</p>
+        <p><br><strong>Fonte UFSC Joinville</strong><br></p>
+        <img src="https://static.ndmais.com.br/2022/03/10.jpg"
+    </div>
+</div>
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
