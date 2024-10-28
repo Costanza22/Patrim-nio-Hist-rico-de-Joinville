@@ -1,0 +1,511 @@
+
+<!DOCTYPE html>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <title>Casa Krüger</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://www.panoramadoturismo.com.br/wp-content/uploads/2018/12/nen1.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    .warning {
+            background-color: #ffcc00; 
+            padding: 10px;
+            border: 1px solid #ff9900; 
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-icon {
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        A Casa Krüger
+        
+        
+        <a href="" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+
+                <img src="kruger.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">Casa Krüger</h1>
+                        <img src="pato.jpg" alt="Ícone" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    <label style="font-size: 20px; color: black;">
+                        <span style="color: green; font-size: 24px;">&#10004;</span> Restaurado
+                    </label>
+                    
+                    <script>
+                    function toggleX() {
+                        var checkbox = document.getElementById('abandonedCheckbox');
+                        var xMarker = document.getElementById('xMarker');
+                        xMarker.style.display = checkbox.checked ? 'inline' : 'none';
+                    }
+                    </script>
+        <div class="warning">
+            <span class="warning-icon">⚠️</span>
+            <span>Na Página Inicial existe uma pré-demonstração desse casarão!</span>
+            
+        </div>
+                    <h2>Bem-vindo(a) á Casa Krüger</h2> 
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/0d/c4/56/f6/casa-kruger.jpg" alt="Krüger" onclick="openModal()" style="width: 500px;">
+                    <br>
+                    
+                    
+        
+        <p>A Casa Krüger, localizada em Joinville, Santa Catarina, é uma das mais antigas e icônicas construções da cidade. Ela representa a arquitetura colonial alemã, estilo trazido pelos imigrantes que chegaram à região em meados do século XIX. Construída por volta de 1870, a casa possui uma estrutura em enxaimel, caracterizada pelo uso de madeira entrelaçada e preenchida com tijolos, técnica comum nas construções germânicas daquela época. O nome "Casa Krüger" deriva da família Krüger, que habitou o local por diversas gerações e teve um papel importante na preservação do patrimônio e da memória cultural da cidade.
+
+        </p>
+
+        <h2>Histórico </h2>
+        <p>Fundação e Construção
+            A construção da Casa Krüger ocorreu por volta de 1870, durante o período de colonização europeia em Joinville. Foi erguida por membros da família Krüger, que se estabeleceram na região como agricultores e comerciantes. A estrutura de enxaimel, caracterizada por seu esqueleto de madeira preenchido com tijolos, reflete as tradições construtivas da Alemanha, adaptadas ao clima e aos materiais locais do Brasil. Essa técnica era comum entre as primeiras famílias de imigrantes, pois aproveitava os recursos naturais disponíveis e oferecia resistência às condições climáticas.</p>
+            
+            A Família Krüger
+            A família Krüger desempenhou um papel importante na história de Joinville. Os primeiros membros da família que se estabeleceram na cidade participaram ativamente do desenvolvimento da agricultura local e contribuíram para o crescimento da comunidade alemã na região. Além da agricultura, a família Krüger envolveu-se no comércio local, ajudando a dinamizar a economia da então jovem colônia de Joinville.
+            
+            “Era a casa da vovó. Quando ia para Joinville com meus pais, dormia no quarto com ela.” Entre suas lembranças mais antigas está o quarto da avó, recoberto com papel de parede com grandes rosas amarelas. “E o pão que ela fazia… Fazia pão de batata e levava na Confeitaria Dietrich para assar.” Nas recordações de menina ainda estão a cozinha com uma despensa, onde não faltavam o melado e o açúcar cristal.</p>
+
+        <h2>Arquitetura</h2>
+        <p>A casa é conhecida por sua beleza arquitetônica e valor histórico, simbolizando o modo de vida dos primeiros colonizadores da região. Além de sua estrutura em enxaimel, ela é cercada por um jardim que adiciona um charme especial ao ambiente, oferecendo um vislumbre do paisagismo típico das antigas residências alemãs. A preservação da Casa Krüger é fundamental para a manutenção da identidade cultural de Joinville e o reconhecimento das contribuições dos imigrantes na construção da cidade.
+        </p>
+        
+        
+        <h2>Importância Cultural</h2>
+        <p>Atualmente, a Casa Krüger funciona como um ponto de preservação histórica e cultural em Joinville, sendo parte do roteiro de turismo cultural da cidade. Embora seja uma construção privada e de propriedade familiar, seu valor histórico faz dela uma parada importante para visitantes interessados em arquitetura, cultura e história da imigração alemã.
+
+            A casa é um marco para estudos e visitas guiadas sobre a arquitetura de enxaimel, um estilo raro e valioso no Brasil. Não há atividades comerciais permanentes no local, como um museu ou centro cultural ativo; no entanto, a casa é mantida em bom estado de conservação e aberta para visitações agendadas em ocasiões específicas, como durante eventos de preservação do patrimônio de Joinville e visitas escolares ou acadêmicas.</p>
+        
+            
+        </p>
+      
+        <figure style="background-color: burlywood; padding: 10px; text-align: center;">
+    <img src="https://www.civitatis.com/f/brasil/joinville/galeria/cachacaria-max-moppi-casa-kruguer.jpg" alt="Descrição da Imagem" style="width: 100%; max-width: 500px; height: auto;">
+    <figcaption>Excursão em 2012</figcaption>
+</figure>
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="https://hinsching.files.wordpress.com/2019/03/casa.png?w=611" 
+             style="width: 500px;">
+             
+
+             <div class="imagem-direita">
+                <img src="https://omunicipiojoinville.com/wp-content/uploads/2022/03/3003-212-1200x675.jpeg" 
+                     style="width: 500px;">
+                     
+             <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2019/03/54258205_1933473963431588_6821522193449484288_n.jpg" 
+             
+             style="width: 500px;">
+             
+    
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2019/03/48266311_10210741078997744_769884187866955776_n.jpg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2019/03/dscf6967.jpg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://media-cdn.tripadvisor.com/media/photo-s/0e/7e/da/05/varanda.jpg" alt="Descrição da Imagem" style="width: 500px;">
+        
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>Rodovia, SC-418, 14530 - Dona Francisca (Piraberaba), Joinville - SC, 89239-100</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/SqQpxi6h-pQ?start=50';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.2248, lng:  -49.2015}; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Casa Krüger'
+    });
+
+    var contentString = '<div><h2>Casa Krüger</h2><img src="https://i.pinimg.com/originals/70/c3/36/70c3363176aa386d42eb2d7eabf49717.jpg" alt="Cidadela"><p>Rodovia, SC-418, 14530 - Dona Francisca (Piraberaba), Joinville - SC, 89239-100</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+<!-- O Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p><br><strong>Enchente</strong><br></p>
+        <p>A Casa Krüger enfrentou duas grandes enchentes em Joinville que deixaram marcas profundas na história da construção e da família que lá residia. A primeira enchente ocorreu em 1972 e, décadas depois, uma segunda inundação devastadora atingiu o local em 9 de fevereiro de 1995. Ambas as enchentes causaram danos significativos, destruindo móveis e diversos pertences da família Krüger, que vivia na casa.
+
+            Esses eventos históricos deixaram marcas que ainda podem ser vistas nas paredes da casa, onde se encontra o nível que a água chegou durante as enchentes. Essas marcas são um testemunho das dificuldades enfrentadas e da resiliência tanto da estrutura quanto da família.</p>
+        <p>As enchentes reforçaram a necessidade de ações de conservação e de um maior cuidado para com o patrimônio histórico, evidenciando o impacto dos desastres naturais em edificações centenárias e na preservação de memórias. </p>
+        <p><br><strong>Fonte Cortina do Passado</strong><br></p>
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2019/03/1995.png?w=3000&h="
+    </div>
+</div>
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
