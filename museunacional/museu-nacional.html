@@ -1,0 +1,518 @@
+
+<!DOCTYPE html>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <title>Museu Nacional da Imigração</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://i1.wp.com/www.casadedoda.com/wp-content/uploads/2017/04/museu-nacional-da-imigracao-joinville-3.jpg?resize=581%2C327');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    .warning {
+            background-color: #ffcc00; 
+            padding: 10px;
+            border: 1px solid #ff9900; 
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-icon {
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        O Museu Nacional da Imigração
+        
+        
+        <a href="https://www.joinville.sc.gov.br/servicos/agendar-visita-ao-museu-nacional-de-imigracao-e-colonizacao/" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+
+                <img src="museu.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">O Museu Nacional da Imigração</h1>
+                        <img src="principe.jpg" alt="Ícone" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    <label style="font-size: 20px; color: black;">
+                        <span style="color: green; font-size: 24px;">&#10004;</span> Restaurado
+                    </label>
+                    
+                    <script>
+                    function toggleX() {
+                        var checkbox = document.getElementById('abandonedCheckbox');
+                        var xMarker = document.getElementById('xMarker');
+                        xMarker.style.display = checkbox.checked ? 'inline' : 'none';
+                    }
+                    </script>
+        <div class="warning">
+            <span class="warning-icon">⚠️</span>
+            <span>Na Página Inicial existe uma pré-demonstração desse casarão!</span>
+            
+        </div>
+                    <h2>Bem-vindo(a) ao Museu Nacional da Imigração</h2> 
+                    <img src="https://media-cdn.tripadvisor.com/media/photo-s/0d/c4/56/f6/casa-kruger.jpg" alt="Krüger" onclick="openModal()" style="width: 500px;">
+                    <br>
+                    
+                    
+        
+        <p>O Museu Nacional de Imigração e Colonização de Joinville foi fundado em 1972 e tem como objetivo preservar e divulgar a história da imigração e colonização de Joinville e região, com ênfase na contribuição dos imigrantes alemães, que foram fundamentais para o desenvolvimento da cidade.
+
+        </p>
+
+        <h2>Histórico </h2>
+        <p>Fundação e Construção
+            A cidade de Joinville começou a ser colonizada em 1851, com a chegada dos primeiros imigrantes alemães, que se estabeleceram na região em busca de melhores condições de vida e oportunidades econômicas. Esses imigrantes trouxeram consigo suas tradições, cultura e conhecimentos, que moldaram profundamente a cidade e sua economia.</p>
+            
+            
+            Com o objetivo de preservar essa rica história, surgiu a ideia de criar um museu que fosse capaz de reunir e conservar objetos e documentos que ilustrassem o processo de imigração e colonização. O museu foi idealizado por um grupo de pessoas interessadas em preservar a memória local, como professores, historiadores e representantes da comunidade. Em 1972, o projeto foi concretizado, com a criação do museu, inicialmente como uma pequena coleção de objetos e documentos históricos.
+            
+            </p>
+
+        <h2>Arquitetura</h2>
+        <p>O Prédio do Museu
+            O museu ocupa um prédio histórico no centro de Joinville, o antigo Palácio Rio Branco, que foi construído entre 1912 e 1913 e funcionou como sede da Prefeitura de Joinville até 1969. A arquitetura do edifício reflete a influência dos imigrantes, com elementos da arquitetura germânica, e a sua adaptação para abrigar o museu foi feita de maneira a manter essas características.
+        </p>
+        
+        
+        <h2>Importância Cultural</h2>
+        <p>Acervo e Exposições
+            Com o passar dos anos, o acervo do museu foi ampliado e diversificado, passando a contar com mais de 20 mil itens, entre objetos, fotos, documentos, móveis, vestuário e utensílios domésticos. Esses itens ajudam a contar a história da imigração, mostrando como os imigrantes viveram, trabalharam e se estabeleceram na região.
+
+            Além de seu acervo permanente, o Museu Nacional de Imigração e Colonização de Joinville também desenvolve diversas atividades culturais e educativas. São realizadas visitas guiadas, workshops, palestras e eventos, além de exposições temporárias que abordam diferentes aspectos da história da imigração e da formação de Joinville.
+        </p>
+        
+            
+        </p>
+      
+        <figure style="background-color: burlywood; padding: 10px; text-align: center;">
+    <img src="interior.webp" alt="Descrição da Imagem" style="width: 100%; max-width: 500px; height: auto;">
+    <figcaption>Interior do Museu em 2010</figcaption>
+</figure>
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="https://imgs-akamai.mnstatic.com/dc/43/dc431ed3ae635ecb5e771201e2fc69d5.jpg?quality=75&format=pjpg&fit=bounds&width=980&height=880" 
+             style="width: 500px;">
+             
+
+             <div class="imagem-direita">
+                <img src="https://servicodados.ibge.gov.br/api/v1/resize/image?caminho=biblioteca.ibge.gov.br/visualizacao/fotografias/GEBIS%20-%20RJ/sc44733.jpg&maxwidth=800&maxheight=600" 
+                     style="width: 500px;">
+                     
+             <div class="imagem-direita">
+        <img src="https://lh3.googleusercontent.com/p/AF1QipPGSWzGP7YZqxAfUpfk-F7F0Rc3d-qSYAiPXOw" 
+             
+             style="width: 500px;">
+             
+    
+    <div class="imagem-direita">
+        <img src="https://th.bing.com/th/id/OIP.214XRTRWaNC-yTbO1-u-LgHaFn?rs=1&pid=ImgDetMain" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://omunicipiojoinville.com/wp-content/uploads/2022/03/reabertura-do-museu-da-imigracao-tem-data-alterada.jpg" 
+             
+             style="width: 500px;">
+    
+   
+                
+    <div class="imagem-direita">
+        <img src="https://static.ndmais.com.br/2022/03/ger09165-950x475.jpg" alt="Descrição da Imagem" style="width: 500px;">
+        
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>R. Rio Branco, 229 - Centro, Joinville - SC, 89201-080</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = 'https://www.youtube.com/embed/yOLgjHR4q7I';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.304456, lng:   -48.849373}; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Museu Nacional'
+    });
+
+    var contentString = '<div><h2>Museu Nacional</h2><img src="museu.png" alt="Cidadela"><p>Rodovia, SC-418, 14530 - Dona Francisca (Piraberaba), Joinville - SC, 89239-100</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+<!-- O Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <p><br><strong>Visita ao Museu</strong><br></p>
+        <p>
+            Visitas Guiadas
+            O museu disponibiliza visitas guiadas que são conduzidas por educadores especializados. Durante essas visitas, os guias oferecem explicações detalhadas sobre o acervo e as exposições, proporcionando uma experiência mais rica e interativa. As visitas guiadas costumam incluir informações sobre a história dos imigrantes que chegaram a Joinville, como os alemães, italianos, poloneses e ucranianos, e como esses povos contribuíram para a formação da cidade.
+            </p>
+        <p>
+            Agendamento
+Em alguns casos, especialmente para grupos ou escolas, é necessário realizar o agendamento prévio para as visitas guiadas. Isso garante que os guias estarão disponíveis para conduzir a visita de maneira organizada. Para o público geral, o museu geralmente oferece horários específicos para as visitas guiadas, e a agenda pode ser consultada diretamente no site oficial do museu ou entrando em contato com a administração.
+        </p>
+        <p><br><strong>Fonte Site do Museu</strong><br></p>
+        <img src="https://static.ndmais.com.br/2016/11/e983c242b220fa7ad9e0fef32d8237a2fe7c5c2b.JPG"
+    </div>
+</div>
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
