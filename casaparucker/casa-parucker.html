@@ -1,0 +1,468 @@
+
+<!DOCTYPE html>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    
+    <title>Casa Parucker</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace; 
+            font-size:20px;
+            background-color: #f7f0e1;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: burlywood; 
+            padding: 20px;
+            text-align: center;
+            color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            display: flex;
+            align-items: center;
+        }
+
+        .icon {
+            margin-left: 20px;
+            width: 2em; 
+            height: 2em; 
+            fill: currentColor;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .intro {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .intro img {
+            border: 3px solid burlywood; 
+            border-radius: 8px;
+            width: 45%;
+            cursor: pointer;
+            
+        }
+
+        .intro-text {
+            width: 50%;
+            
+        }
+
+        .intro-text h2 {
+            font-size: 1.8em;
+            color: burlywood; 
+        }
+
+        .map-container {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid burlywood; 
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: burlywood; 
+            color: black;
+        }
+
+        /* Google Maps customization */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* Tooltip with image */
+        .gm-style-iw img {
+            width: 150px;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Video modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            position: relative;
+            margin: auto;
+            padding: 0;
+            width: 80%;
+            max-width: 700px;
+            top: 10%;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close {
+            color: white;
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        iframe {
+            width: 100%;
+            height: 400px;
+            border: 3px solid burlywood; 
+            border-radius: 10px;
+        }
+
+        /* Thumbnail image for the video when paused */
+        .video-thumbnail {
+            width: 100%;
+            height: 400px;
+            background-image: url('https://cortinadopassado.com.br/wp-content/uploads/2019/01/dscn1479.jpg?w=616');
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+       
+        iframe {
+            display: none;
+        }
+
+       
+        iframe.playing {
+            display: block;
+        }
+
+        .video-thumbnail.hidden {
+            display: none;
+        }
+        .video-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.imagem-3d {
+    width: 300px; 
+    height: auto; 
+    transform: translateZ(50px); 
+}
+ 
+.floating-icon {
+            position: fixed;
+            right: 20px; 
+            bottom: 20px; 
+            font-size: 50px; 
+            cursor: pointer; 
+            transition: transform 0.3s; 
+        }
+        .floating-icon:hover {
+            transform: scale(1.1); 
+        }
+         .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0, 0, 0); 
+            background-color: rgba(0, 0, 0, 0.4); 
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            text-align: center; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .container {
+    display: flex; 
+    align-items: center; 
+}
+
+.imagem-lateral {
+    max-width: 200px; 
+    margin-right: 20px; 
+}
+
+.imagem-direita {
+        text-align: right;
+        }
+    .warning {
+            background-color: #ffcc00; 
+            padding: 10px;
+            border: 1px solid #ff9900; 
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-icon {
+            margin-right: 10px;
+        }
+
+    </style>
+</head>
+
+<body>
+    
+    <header> <h1>
+        O Museu Nacional da Imigração
+        
+        
+        <a href="https://cortinadopassado.com.br/2019/01/21/casa-familia-parucker/" target="_blank" rel="noopener noreferrer">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-right-square-fill icon" viewBox="0 0 16 16">
+                <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1"/>
+                <div class="background"></div>
+            <div class="image-container">
+
+                <img src="parucker.png" alt="Imagem 3D" class="imagem-3d">
+            </svg>
+        </a>
+        
+    </h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="intro">
+                <div class="intro-text">
+                    <div style="display: flex; align-items: center;">
+                        <h1 style="margin: 0;">Casa Parucker</h1>
+                        <img src="parucker.png" alt="Ícone" style="width: 60px; height: 60px; margin-left: 8px;">
+                    </div>
+                    <label style="font-size: 20px; color: black;">
+                        <span style="color: green; font-size: 24px;">&#10004;</span> Restaurado
+                    </label>
+                    
+                    <script>
+                    function toggleX() {
+                        var checkbox = document.getElementById('abandonedCheckbox');
+                        var xMarker = document.getElementById('xMarker');
+                        xMarker.style.display = checkbox.checked ? 'inline' : 'none';
+                    }
+                    </script>
+        
+                    <h2>Bem vindo(a) á Casa Parucker</h2> 
+                    <img src="https://th.bing.com/th/id/R.25fcf9dc86bdcc25c52bac762f3c55c7?rik=X5Tb54DURVaY5Q&riu=http%3a%2f%2fwww.ipatrimonio.org%2fwp-content%2fuploads%2f2017%2f07%2fPal%C3%A1cio-dos-Pr%C3%ADncipes-Imagem-Matheus-Gallo-768x513.jpg&ehk=17jcEiqN%2f1sNbUElfVQzkXEIJ4JSgyIGchx4eDC9Oiw%3d&risl=&pid=ImgRaw&r=0" alt="Krüger" onclick="openModal()" style="width: 500px;">
+                    <br>
+                    
+                    
+        
+        <p>
+
+            A casa da Família Parucker segundo os moradores locais da região de Pirabeiraba, foi construída por volta de 1900 e desde o inicio pertenceu a familia Parucker.
+        </p>
+
+        <h2>Histórico </h2>
+        <p>Fundação e Construção
+            A Casa Parucker é um ícone da arquitetura e história de Joinville, refletindo a herança alemã dos imigrantes que colonizaram a região. Foi construída em 1903 por Albert Parucker, um dos muitos imigrantes que chegaram ao Brasil no final do século XIX e início do século XX. A casa passou a abrigar gerações da família Parucker e preserva muitos detalhes originais que revelam a cultura e o estilo de vida dos colonos daquela época.
+            
+            </p>
+
+        <h2>Arquitetura</h2>
+        <p>
+            A arquitetura da Casa Parucker é um excelente exemplo do estilo enxaimel, uma técnica de construção comum na Alemanha. O método consiste em um esqueleto de madeira à vista, preenchido com tijolos, barro ou outros materiais, formando padrões geométricos característicos nas paredes externas. Essa técnica, além de ter valor estético, permitia uma estrutura leve e resistente, adaptando-se bem ao clima e à umidade da região sul do Brasil.
+        </p>
+        
+        
+        <h2>Importância Cultural</h2>
+        <p>
+            
+            A Casa Parucker possui grande importância cultural para Joinville, pois simboliza a herança dos imigrantes alemães que moldaram a identidade da cidade. Ela é mais que uma estrutura física; representa as tradições, a arquitetura e o estilo de vida dos colonos que trouxeram a técnica do enxaimel e adaptaram sua cultura ao Brasil.
+
+            Pontos de importância cultural da Casa Parucker:
+            Preservação da Memória dos Imigrantes Alemães: A casa é um testemunho da história dos imigrantes que chegaram ao sul do Brasil no século XIX e ajudaram a formar comunidades com tradições e valores próprios. Para Joinville, é uma lembrança viva da influência alemã que permanece presente na arquitetura, na culinária e nos costumes locais.
+            
+        </p>
+        
+            
+        </p>
+      
+        
+
+    </div>
+    
+    <div class="imagem-direita">
+        <img src="https://cortinadopassado.com.br/wp-content/uploads/2019/01/dscn1479.jpg" 
+             style="width: 500px;">
+   
+            <section class="map-container">
+                <div style="display: flex; align-items: center;">
+                    <i class="fa-solid fa-map-pin" style="font-size: 24px; margin-right: 8px;"></i>
+                    <h2 style="margin: 0;">Mapa Virtual</h2>
+                    
+                </div>
+                
+                <p>Estrada Dona Francisca, nº 2.870, Km3 – Dona Francisca – Joinville-SC</p>
+                <div id="map"></div>
+                
+            </section>
+        </div>
+        
+    </main>
+    
+    <footer>
+        <p>&copy; Todos os direitos reservados para a Prefeitura de Joinville.</p>
+    </footer>
+    
+    <!-- Modal para o vídeo -->
+    <div id="videoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="videoThumbnail" class="video-thumbnail" onclick="playVideo()"></div>
+            <iframe id="videoFrame" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <script>
+        
+        function openModal() {
+            document.getElementById('videoModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('videoModal').style.display = 'none';
+            pauseVideo();
+        }
+
+    
+        function playVideo() {
+            document.getElementById('videoThumbnail').classList.add('hidden');
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoFrame').classList.add('playing');
+        }
+
+       
+        function pauseVideo() {
+            document.getElementById('videoFrame').src = '';
+            document.getElementById('videoThumbnail').classList.remove('hidden');
+            document.getElementById('videoFrame').classList.remove('playing');
+        }
+
+
+
+
+
+   // Inicializar o mapa
+function initMap() {
+    var farolLocation = { lat:  -26.2865, lng:   -48.8783}; // Coordenadas do Farol de Joinville
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 16,
+        center: farolLocation,
+    });
+
+    var marker = new google.maps.Marker({
+        position: farolLocation,
+        map: map,
+        title: 'Casa Parucker'
+    });
+
+    var contentString = '<div><h2>Casa Parucker</h2><img src="parucker.png" alt="Parucker"><p>Estrada Dona Francisca, nº 2.870, Km3 – Dona Francisca – Joinville-SC</p></div>';
+
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+
+    marker.addListener('click', function () {
+        infowindow.open(map, marker);
+    });
+}
+</script>
+<i class="fas fa-question-circle floating-icon" id="infoIcon"></i>
+
+
+
+<script>
+    
+    var modal = document.getElementById("myModal");
+    var icon = document.getElementById("infoIcon");
+    var span = document.getElementById("closeModal");
+
+    
+    icon.onclick = function() {
+        modal.style.display = "block";
+    }
+
+    
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+  
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+
+
+
+<!-- API do Google Maps -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1Msqw2XkhzVdam9YV9A-YLB5TcRqDHBc&callback=initMap">
+</script>
+
